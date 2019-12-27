@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button} from '@blueprintjs/core';
 var rp = require('request-promise');
 
 class DataList extends React.Component {
@@ -7,9 +8,11 @@ class DataList extends React.Component {
         this.state = {
             data: []
         }
+
+        this.reload = this.reload.bind(this);
     }
 
-    componentWillMount() {
+    reload() {
         // データを取得する
         var options = {
             uri: 'http://localhost:3001/api/test',
@@ -26,6 +29,10 @@ class DataList extends React.Component {
             });
     }
 
+    componentWillMount() {
+        this.reload();
+    }
+
     render() {
         const data = this.state.data;
 
@@ -37,6 +44,7 @@ class DataList extends React.Component {
                     <td>{d.col2}</td>
                     <td>{d.col3}</td>
                     <td>{d.sort_order}</td>
+                    <td><Button minimal>変更</Button><Button minimal>削除</Button></td>
                 </tr>
             );
         });
@@ -52,6 +60,7 @@ class DataList extends React.Component {
                         <th>カラム２</th>
                         <th>カラム３</th>
                         <th>表示順</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
